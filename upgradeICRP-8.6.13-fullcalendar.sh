@@ -16,23 +16,25 @@ echo "* cd $dir"
 cd $dir
 echo `pwd`
 
-#echo "Checkout branch ss-2501_Drupal_8.8_Upgrade 4fb8cc07df39c653767a7b73c298b19b141472ba"
-#echo "This is the initial Site. Drupal 8.6.13 with the FullCalendar fix"
-#git checkout -b ss-2501_Drupal_8.8_Upgrade_8.6.13_fullcalendar 4fb8cc07df39c653767a7b73c298b19b141472ba --progress
-#git log -n1
+echo "Checkout branch ss-2501_Drupal_8.8_Upgrade 4fb8cc07df39c653767a7b73c298b19b141472ba"
+echo "This is the initial Site. Drupal 8.6.13 with the FullCalendar fix"
+git stash
+git checkout -b ss-2501_Drupal_8.8_Upgrade_8.6.13_fullcalendar3 4fb8cc07df39c653767a7b73c298b19b141472ba --progress
+git log -n1
 
-#echo ""
-#echo "* composer install"
-#composer install
 echo "*Require Upgrade fullcalendar"
 echo "composer require drupal/fullcalendar drupal/fullcalendar_options drupal/fullcalendar_legend"
-composer require drupal/fullcalendar drupal/fullcalendar_options drupal/fullcalendar_legend
+/usr/bin/php -d memory_limit=-1 /usr/local/bin/composer require drupal/fullcalendar drupal/fullcalendar_options drupal/fullcalendar_legend
 
 echo "drush sql-query ''delete from config where name like 'fullcalendar%'"
 drush sql-query "delete from config where name like 'fullcalendar%'"
 
 echo "drush pm-enable fullcalendar fullcalendar_options fullcalendar_legend -y"
 drush pm-enable fullcalendar fullcalendar_options fullcalendar_legend -y
+
+echo ""
+echo "* composer upgrade"
+/usr/bin/php -d memory_limit=-1 /usr/local/bin/composer upgrade
 
 echo "* drush status"
 drush status

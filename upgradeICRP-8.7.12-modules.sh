@@ -38,8 +38,7 @@ echo "composer require drupal/typed_data:^1.0-alpha4@alpha drupal/video_embed_fi
 php -d memory_limit=-1 /usr/local/bin/composer require drupal/typed_data:^1.0-alpha4@alpha drupal/video_embed_field:^2.2 drupal/webform:^5.8 drupal/webform_views:^5.0-alpha7@alpha drupal/webform_ui:^5.8
 
 echo "* Manually update drupal/token:^1.6 or drupal/token:^1.7"
-_token_info
-
+echo "* Upgrade the rest of the modules"
 echo "* drush status"
 drush status
 drush cr
